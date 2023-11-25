@@ -1,13 +1,13 @@
-import { useId, type InputHTMLAttributes } from 'react';
+import { useId, type InputHTMLAttributes, type ReactNode } from 'react';
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
-  label: string;
+  label: string | ReactNode;
   options: Option[];
   error?: string;
 };
 
 type Option = {
-  label: string;
+  label: string | ReactNode;
   value: string;
 };
 

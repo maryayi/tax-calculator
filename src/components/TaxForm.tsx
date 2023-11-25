@@ -9,6 +9,7 @@ type TaxFormType = {
   salary: number;
   period: 'monthly' | 'annual';
   currency: 'IRR' | 'IRT';
+  year: '1402' | '1403';
 };
 
 const periodLabel: Record<TaxFormType['period'], string> = {
@@ -35,6 +36,10 @@ const schema = yup.object().shape({
     .mixed<TaxFormType['currency']>()
     .oneOf(['IRR', 'IRT'])
     .required('واحد را وارد کنید'),
+  year: yup
+    .mixed<TaxFormType['year']>()
+    .oneOf(['1402', '1403'])
+    .required('سال مالی را وارد کنید'),
 });
 
 function TaxForm() {
@@ -49,6 +54,7 @@ function TaxForm() {
     defaultValues: {
       period: 'monthly',
       currency: 'IRT',
+      year: '1402',
     },
     resolver: yupResolver(schema),
   });
@@ -65,6 +71,35 @@ function TaxForm() {
 
   return (
     <form className="flex flex-col gap-3 p-2" onSubmit={handleSubmit(onSubmit)}>
+      <Controller
+        name="year"
+        control={control}
+        render={({ field }) => {
+          return (
+            <Radio
+              label="سال مالی"
+              options={[
+                { label: '۱۴۰۲', value: '1402' },
+                {
+                  label: (
+                    <p>
+                      ۱۴۰۳{' '}
+                      <span className="text-red-500 text-xs">
+                        (لایحه تصویب نشده)
+                      </span>
+                    </p>
+                  ),
+                  value: '1403',
+                },
+              ]}
+              onChange={field.onChange}
+              name={field.name}
+              value={field.value}
+              error={errors?.year?.message}
+            />
+          );
+        }}
+      />
       <Controller
         name="currency"
         control={control}
