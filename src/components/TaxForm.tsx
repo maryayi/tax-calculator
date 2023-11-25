@@ -1,15 +1,19 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import rules from '../core/rules.ts';
+import { convertToPersianNumbers } from '../utils/index.ts';
 import Button from './Button';
 import Input from './Input';
 import Radio from './Radio';
+
+const years = Object.keys(rules) as (keyof typeof rules)[];
 
 type TaxFormType = {
   salary: number;
   period: 'monthly' | 'annual';
   currency: 'IRR' | 'IRT';
-  year: '1402' | '1403';
+  year: keyof typeof rules;
 };
 
 const periodLabel: Record<TaxFormType['period'], string> = {
@@ -38,7 +42,7 @@ const schema = yup.object().shape({
     .required('واحد را وارد کنید'),
   year: yup
     .mixed<TaxFormType['year']>()
-    .oneOf(['1402', '1403'])
+    .oneOf(years)
     .required('سال مالی را وارد کنید'),
 });
 
@@ -78,20 +82,19 @@ function TaxForm() {
           return (
             <Radio
               label="سال مالی"
-              options={[
-                { label: '۱۴۰۲', value: '1402' },
-                {
-                  label: (
-                    <p>
-                      ۱۴۰۳{' '}
+              options={years.map((year) => ({
+                value: year,
+                label: (
+                  <p>
+                    {convertToPersianNumbers(+year)}{' '}
+                    {!rules[year].isApproved && (
                       <span className="text-red-500 text-xs">
                         (لایحه تصویب نشده)
                       </span>
-                    </p>
-                  ),
-                  value: '1403',
-                },
-              ]}
+                    )}
+                  </p>
+                ),
+              }))}
               onChange={field.onChange}
               name={field.name}
               value={field.value}
