@@ -3,10 +3,12 @@ import HeaderTitle from './HeaderTitle';
 
 function Header() {
   return (
-    <header className="flex bg-slate-100 p-4 border justify-between border-b-gray-500 border-solid">
-      <HeaderTitle subTitle="محاسبه مالیات بر درآمد">مالیات‌سنج</HeaderTitle>
-      <HeaderLinks />
-    </header>
+    <div className="bg-slate-100 flex w-full border-b border-b-gray-500 border-solid justify-center">
+      <header className="flex max-w-5xl w-full p-4 justify-between">
+        <HeaderTitle subTitle="محاسبه مالیات بر درآمد">مالیات‌سنج</HeaderTitle>
+        <HeaderLinks />
+      </header>
+    </div>
   );
 }
 
