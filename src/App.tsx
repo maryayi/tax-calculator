@@ -1,10 +1,7 @@
+import Layout from './components/Layout';
+
 function App() {
-  return (
-    <div className="flex flex-col">
-      <header>سلام مالیات</header>
-      <main>ماشین حساب مالیات</main>
-    </div>
-  );
+  return <Layout>سلام</Layout>;
 }
 
 export default App;
