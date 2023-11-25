@@ -16,7 +16,7 @@ function Radio({ label, options, error, ...rest }: Props) {
 
   return (
     <div>
-      <legend>{label}</legend>
+      <legend className="text-lg font-bold">{label}</legend>
 
       {options.map(({ value, label: itemLabel }: Option) => (
         <div className="flex gap-1" key={value}>

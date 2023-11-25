@@ -45,6 +45,7 @@ function TaxForm() {
     control,
     formState: { errors },
   } = useForm<TaxFormType>({
+    mode: 'all',
     defaultValues: {
       period: 'monthly',
       currency: 'IRT',
@@ -63,7 +64,7 @@ function TaxForm() {
   };
 
   return (
-    <form className="flex flex-col gap-2 p-2" onSubmit={handleSubmit(onSubmit)}>
+    <form className="flex flex-col gap-3 p-2" onSubmit={handleSubmit(onSubmit)}>
       <Controller
         name="currency"
         control={control}

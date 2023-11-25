@@ -12,13 +12,15 @@ const Input = forwardRef(
 
     return (
       <div className="flex flex-col gap-0 items-start">
-        <label htmlFor={id}>{label}</label>
+        <label htmlFor={id} className="text-lg font-bold">
+          {label}
+        </label>
         <input
           {...rest}
           ref={ref}
           id={id}
           className={twMerge(
-            'p-2 border border-slate-600 border-solid',
+            'p-2 border border-slate-600 border-solid rounded-md',
             className
           )}
         />
