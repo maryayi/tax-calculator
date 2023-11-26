@@ -7,19 +7,19 @@ const rules = {
         taxPercent: 0,
       },
       {
-        annualMin: 1_200_000_001,
+        annualMin: 1_200_000_000,
         taxPercent: 10,
       },
       {
-        annualMin: 1_680_000_001,
+        annualMin: 1_680_000_000,
         taxPercent: 15,
       },
       {
-        annualMin: 2_760_000_001,
+        annualMin: 2_760_000_000,
         taxPercent: 20,
       },
       {
-        annualMin: 4_080_000_001,
+        annualMin: 4_080_000_000,
         taxPercent: 30,
       },
     ],
@@ -32,19 +32,19 @@ const rules = {
         taxPercent: 0,
       },
       {
-        annualMin: 1_200_000_001,
+        annualMin: 1_200_000_000,
         taxPercent: 10,
       },
       {
-        annualMin: 1_680_000_001,
+        annualMin: 1_680_000_000,
         taxPercent: 15,
       },
       {
-        annualMin: 2_760_000_001,
+        annualMin: 2_760_000_000,
         taxPercent: 20,
       },
       {
-        annualMin: 4_080_000_001,
+        annualMin: 4_080_000_000,
         taxPercent: 30,
       },
     ],
