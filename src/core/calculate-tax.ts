@@ -28,23 +28,23 @@ function calculateTax({ salary, year }: InputType): OutputType {
   return currentYearRule.steps.reduce(
     (
       acc: OutputType,
-      cur: (typeof currentYearRule)['steps'][number],
+      { annualMin, taxPercent }: (typeof currentYearRule)['steps'][number],
       index: number,
       allSteps
     ) => {
-      if (salary >= cur.annualMin) {
-        const nextStepIndex = Math.min(index + 1, allSteps.length - 1);
+      if (salary >= annualMin) {
+        const currentStepUpperLimit = Math.min(
+          salary,
+          allSteps?.[index + 1]?.annualMin ?? Infinity
+        );
         const currentStepTax =
-          ((Math.min(salary, allSteps[nextStepIndex].annualMin) -
-            cur.annualMin) *
-            cur.taxPercent) /
-          100;
+          (currentStepUpperLimit - annualMin) * (taxPercent / 100);
         return {
           steps: [
             ...acc.steps,
             {
-              annualMin: cur.annualMin,
-              taxPercent: cur.taxPercent,
+              annualMin,
+              taxPercent,
               appliedTax: currentStepTax,
             },
           ],

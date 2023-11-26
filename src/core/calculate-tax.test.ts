@@ -27,7 +27,6 @@ describe('Testing tax calculator', () => {
   it('A normal number should return a valid tax value', () => {
     const tax = calculateTax({ salary: 2_000_000_000, year: '1402' });
 
-    console.log(tax);
     expect(tax).toEqual({
       steps: [
         {
