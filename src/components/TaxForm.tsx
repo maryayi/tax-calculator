@@ -84,7 +84,7 @@ function TaxForm() {
   };
 
   return (
-    <form className="flex flex-col gap-3 p-2" onSubmit={handleSubmit(onSubmit)}>
+    <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
       <Controller
         name="year"
         control={control}
