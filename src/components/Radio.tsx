@@ -4,6 +4,7 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
   label: string | ReactNode;
   options: Option[];
   error?: string;
+  icon?: ReactNode;
 };
 
 type Option = {
@@ -11,11 +12,12 @@ type Option = {
   value: string;
 };
 
-function Radio({ label, options, error, ...rest }: Props) {
+function Radio({ label, options, error, icon, ...rest }: Props) {
   const id = useId();
 
   return (
     <div className="flex gap-1 items-center">
+      {!!icon && icon}
       <legend className="text-lg font-bold pl-4">{label}</legend>
 
       {options.map(({ value, label: itemLabel }: Option) => (

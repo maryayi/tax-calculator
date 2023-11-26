@@ -1,3 +1,8 @@
+import {
+  BanknotesIcon,
+  CalendarDaysIcon,
+  ClockIcon,
+} from '@heroicons/react/24/outline';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -86,6 +91,7 @@ function TaxForm() {
         render={({ field }) => {
           return (
             <Radio
+              icon={<CalendarDaysIcon className="w-6 h-6" />}
               label="سال مالی"
               options={years.map((year) => ({
                 value: year,
@@ -114,6 +120,7 @@ function TaxForm() {
         render={({ field }) => {
           return (
             <Radio
+              icon={<BanknotesIcon className="w-6 h-6" />}
               label="واحد پول"
               options={[
                 { label: currencyLabel['IRT'], value: 'IRT' },
@@ -133,6 +140,7 @@ function TaxForm() {
         render={({ field }) => {
           return (
             <Radio
+              icon={<ClockIcon className="w-6 h-6" />}
               label="واحد زمانی"
               options={[
                 { label: periodLabel['monthly'], value: 'monthly' },
