@@ -32,13 +32,13 @@ function calculateTax({ salary, year }: InputType): OutputType {
       index: number,
       allSteps
     ) => {
-      if (salary >= annualMin) {
+      if (salary > annualMin) {
         const currentStepUpperLimit = Math.min(
           salary,
           allSteps?.[index + 1]?.annualMin ?? Infinity
         );
-        const currentStepTax =
-          (currentStepUpperLimit - annualMin) * (taxPercent / 100);
+        const currentStepTaxMargin = currentStepUpperLimit - annualMin;
+        const currentStepTax = currentStepTaxMargin * (taxPercent / 100);
         return {
           steps: [
             ...acc.steps,
