@@ -1,11 +1,11 @@
 import rules from './rules';
 
-type InputType = {
+type CalculateInputType = {
   salary: number; // annual IRR
   year: keyof typeof rules;
 };
 
-type OutputType = {
+export type CalculateOutputType = {
   steps: {
     annualMin: number;
     taxPercent: number;
@@ -15,7 +15,10 @@ type OutputType = {
   totalPercent: number;
 };
 
-function calculateTax({ salary, year }: InputType): OutputType {
+function calculateTax({
+  salary,
+  year,
+}: CalculateInputType): CalculateOutputType {
   const currentYearRule = rules[year];
   if (!currentYearRule) {
     throw new Error('Tax rule not found');
@@ -27,7 +30,7 @@ function calculateTax({ salary, year }: InputType): OutputType {
 
   return currentYearRule.steps.reduce(
     (
-      acc: OutputType,
+      acc: CalculateOutputType,
       { annualMin, taxPercent }: (typeof currentYearRule)['steps'][number],
       index: number,
       allSteps
