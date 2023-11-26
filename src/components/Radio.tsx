@@ -15,8 +15,8 @@ function Radio({ label, options, error, ...rest }: Props) {
   const id = useId();
 
   return (
-    <div>
-      <legend className="text-lg font-bold">{label}</legend>
+    <div className="flex gap-1 items-center">
+      <legend className="text-lg font-bold pl-4">{label}</legend>
 
       {options.map(({ value, label: itemLabel }: Option) => (
         <div className="flex gap-1" key={value}>

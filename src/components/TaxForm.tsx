@@ -1,15 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import calculateTax from '../core/calculate-tax.ts';
 import rules from '../core/rules.ts';
-import { convertToPersianNumbers } from '../utils/index.ts';
+import { convertToPersianNumbers, normalizeSalary } from '../utils/index.ts';
 import Button from './Button';
 import Input from './Input';
 import Radio from './Radio';
 
 const years = Object.keys(rules) as (keyof typeof rules)[];
 
-type TaxFormType = {
+export type TaxFormType = {
   salary: number;
   period: 'monthly' | 'annual';
   currency: 'IRR' | 'IRT';
@@ -69,8 +70,12 @@ function TaxForm() {
 
   const inputLabel = `درآمد ${periodLabel[period]} (${currencyLabel[currency]})`;
 
-  const onSubmit = (data: TaxFormType) => {
-    console.log(data);
+  const onSubmit = ({ salary, period, currency, year }: TaxFormType) => {
+    const result = calculateTax({
+      salary: normalizeSalary({ salary, currency, period }),
+      year,
+    });
+    console.log(result);
   };
 
   return (
@@ -143,6 +148,7 @@ function TaxForm() {
       />
       <Input
         {...register('salary')}
+        style={{ direction: 'ltr' }}
         error={errors?.salary?.message}
         label={inputLabel}
       />
