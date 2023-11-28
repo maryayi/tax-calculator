@@ -54,7 +54,7 @@ const schema = yup.object().shape({
 });
 
 function TaxForm() {
-  const { setOutput, setInput } = useTaxContext();
+  const { setOutput, setInput, setIsModalOpen } = useTaxContext();
 
   const {
     register,
@@ -85,6 +85,7 @@ function TaxForm() {
       year,
     });
     setOutput(result);
+    setIsModalOpen(true);
   };
 
   return (

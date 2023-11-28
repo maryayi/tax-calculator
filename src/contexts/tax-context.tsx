@@ -8,6 +8,8 @@ import { type TaxFormType } from '../components/TaxForm';
 import { type CalculateOutputType } from '../core/calculate-tax';
 
 type ContextType = {
+  isModalOpen: boolean;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   input: TaxFormType;
   setInput: React.Dispatch<React.SetStateAction<TaxFormType>>;
   output: CalculateOutputType;
@@ -15,6 +17,8 @@ type ContextType = {
 };
 
 const defaultContextValue = {
+  isModalOpen: false,
+  setIsModalOpen: () => {},
   input: {
     salary: 0,
     period: 'monthly',
@@ -41,9 +45,13 @@ export const TaxContextProvider = ({ children }: PropsWithChildren) => {
     defaultContextValue.input
   );
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <TaxContext.Provider
       value={{
+        isModalOpen,
+        setIsModalOpen,
         input: taxInputValue,
         setInput: setTaxInputValue,
         output: taxOutputValue,
