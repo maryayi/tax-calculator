@@ -54,7 +54,7 @@ const schema = yup.object().shape({
 });
 
 function TaxForm() {
-  const { setOutput } = useTaxContext();
+  const { setOutput, setInput } = useTaxContext();
 
   const {
     register,
@@ -79,6 +79,7 @@ function TaxForm() {
   const inputLabel = `درآمد ${periodLabel[period]} (${currencyLabel[currency]})`;
 
   const onSubmit = ({ salary, period, currency, year }: TaxFormType) => {
+    setInput({ salary, period, currency, year });
     const result = calculateTax({
       salary: normalizeSalary({ salary, currency, period }),
       year,
