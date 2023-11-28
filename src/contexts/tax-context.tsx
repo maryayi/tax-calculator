@@ -3,7 +3,7 @@ import { CalculateOutputType } from '../core/calculate-tax';
 
 type ContextType = {
   output: CalculateOutputType;
-  setOutput?: React.Dispatch<React.SetStateAction<CalculateOutputType>>;
+  setOutput: React.Dispatch<React.SetStateAction<CalculateOutputType>>;
 };
 
 const defaultContextValue = {
@@ -12,7 +12,7 @@ const defaultContextValue = {
     totalPercent: 0,
     steps: [],
   },
-  setOutput: undefined,
+  setOutput: () => {},
 };
 
 const TaxContext = createContext<ContextType>(defaultContextValue);

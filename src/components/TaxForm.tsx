@@ -6,6 +6,7 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { useTaxContext } from '../contexts/tax-context.tsx';
 import calculateTax from '../core/calculate-tax.ts';
 import rules from '../core/rules.ts';
 import { convertToPersianNumbers, normalizeSalary } from '../utils/index.ts';
@@ -53,6 +54,8 @@ const schema = yup.object().shape({
 });
 
 function TaxForm() {
+  const { setOutput } = useTaxContext();
+
   const {
     register,
     handleSubmit,
@@ -80,7 +83,7 @@ function TaxForm() {
       salary: normalizeSalary({ salary, currency, period }),
       year,
     });
-    console.log(result);
+    setOutput(result);
   };
 
   return (
