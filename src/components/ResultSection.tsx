@@ -1,15 +1,33 @@
 import { useTaxContext } from '../contexts/tax-context';
-import { convertToPersianNumbers } from '../utils';
+import { IRR2IRT, annual2Monthly, convertToPersianNumbers } from '../utils';
 import Modal from './Modal';
 import ResultTable from './ResultTable';
-import { currencyLabel } from './TaxForm';
+import { TaxFormType, currencyLabel, periodLabel } from './TaxForm';
+
+function normalizeOutputCurrency(
+  value: number,
+  currency: TaxFormType['currency']
+) {
+  let result = value;
+
+  if (currency === 'IRT') {
+    result = IRR2IRT(value);
+  }
+
+  return result;
+}
 
 function ResultSection() {
   const { input, output, isModalOpen, setIsModalOpen } = useTaxContext();
 
+  const annualTaxValueInSelectedCurrency = normalizeOutputCurrency(
+    output.totalTax,
+    input.currency
+  );
+
   const tableData = [
     {
-      header: 'درآمد',
+      header: `درآمد ${periodLabel[input.period]}`,
       value: convertToPersianNumbers(input.salary, {
         useGrouping: true,
         currency: currencyLabel[input.currency],
@@ -17,8 +35,19 @@ function ResultSection() {
     },
     { header: 'سال مالی', value: convertToPersianNumbers(input.year) },
     {
-      header: 'مالیات',
-      value: convertToPersianNumbers(output.totalTax, {
+      header: `مالیات ${periodLabel['monthly']}`,
+      value: convertToPersianNumbers(
+        annual2Monthly(annualTaxValueInSelectedCurrency),
+        {
+          useGrouping: true,
+          fractionDigits: 0,
+          currency: currencyLabel[input.currency],
+        }
+      ),
+    },
+    {
+      header: `مالیات ${periodLabel['annual']}`,
+      value: convertToPersianNumbers(annualTaxValueInSelectedCurrency, {
         useGrouping: true,
         fractionDigits: 0,
         currency: currencyLabel[input.currency],
