@@ -1,15 +1,37 @@
 import { useTaxContext } from '../contexts/tax-context';
+import { convertToPersianNumbers } from '../utils';
 import Modal from './Modal';
 import ResultTable from './ResultTable';
+import { currencyLabel } from './TaxForm';
 
 function ResultSection() {
   const { input, output, isModalOpen, setIsModalOpen } = useTaxContext();
 
   const tableData = [
-    { header: 'درآمد', value: input.salary },
-    { header: 'سال مالی', value: input.year },
-    { header: 'مالیات', value: output.totalTax },
-    { header: 'درصد مالیات از کل درآمد', value: output.totalPercent },
+    {
+      header: 'درآمد',
+      value: convertToPersianNumbers(input.salary, {
+        useGrouping: true,
+        currency: currencyLabel[input.currency],
+      }),
+    },
+    { header: 'سال مالی', value: convertToPersianNumbers(input.year) },
+    {
+      header: 'مالیات',
+      value: convertToPersianNumbers(output.totalTax, {
+        useGrouping: true,
+        fractionDigits: 0,
+        currency: currencyLabel[input.currency],
+      }),
+    },
+    {
+      header: 'درصد مالیات از کل درآمد',
+      value: convertToPersianNumbers(output.totalPercent, {
+        useGrouping: false,
+        fractionDigits: 2,
+        currency: '%',
+      }),
+    },
   ];
   return (
     <Modal

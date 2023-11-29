@@ -1,25 +1,34 @@
 import { TaxFormType } from '../components/TaxForm';
 
-export function convertToPersianNumbers(englishNumber: number): string {
-  const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-  const persianDecimalSeparator = '٫'; // U+066B: Persian Decimal Separator
+export function convertToPersianNumbers(
+  number: number | string,
+  {
+    useGrouping = false,
+    fractionDigits = 0,
+    currency,
+  }: {
+    useGrouping?: boolean;
+    currency?: string;
+    fractionDigits?: number;
+  } = {
+    useGrouping: false,
+    currency: undefined,
+    fractionDigits: 0,
+  }
+): string {
+  const numeralNum = typeof number === 'string' ? +number : number;
 
-  const englishNumberString = englishNumber.toString();
-  let persianNumberString = '';
+  let result = Intl.NumberFormat('fa-IR', {
+    minimumFractionDigits: fractionDigits,
+    maximumFractionDigits: fractionDigits,
+    useGrouping,
+  }).format(numeralNum);
 
-  for (let i = 0; i < englishNumberString.length; i++) {
-    const char = englishNumberString.charAt(i);
-    const isDigit = /\d/.test(char);
-
-    persianNumberString += isDigit ? persianNumbers[parseInt(char, 10)] : char;
-
-    // Replace the decimal point with the Persian decimal separator
-    if (char === '.') {
-      persianNumberString += persianDecimalSeparator;
-    }
+  if (currency) {
+    result = `${result} ${currency}`;
   }
 
-  return persianNumberString;
+  return result;
 }
 
 export function IRR2IRT(IRR: number) {

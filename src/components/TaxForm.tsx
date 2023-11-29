@@ -23,12 +23,12 @@ export type TaxFormType = {
   year: keyof typeof rules;
 };
 
-const periodLabel: Record<TaxFormType['period'], string> = {
+export const periodLabel: Record<TaxFormType['period'], string> = {
   monthly: 'ماهانه',
   annual: 'سالانه',
 };
 
-const currencyLabel: Record<TaxFormType['currency'], string> = {
+export const currencyLabel: Record<TaxFormType['currency'], string> = {
   IRT: 'تومان',
   IRR: 'ریال',
 };
@@ -161,7 +161,7 @@ function TaxForm() {
       />
       <Input
         {...register('salary')}
-        style={{ direction: 'ltr' }}
+        dir="ltr"
         error={errors?.salary?.message}
         label={inputLabel}
       />
