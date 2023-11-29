@@ -58,7 +58,7 @@ function ResultSection() {
       value: convertToPersianNumbers(output.totalPercent, {
         useGrouping: false,
         fractionDigits: 2,
-        currency: '%',
+        currency: '٪',
       }),
     },
   ];
