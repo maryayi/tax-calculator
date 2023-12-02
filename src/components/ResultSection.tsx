@@ -1,6 +1,7 @@
 import { useTaxContext } from '../contexts/tax-context';
 import { IRR2IRT, annual2Monthly, convertToPersianNumbers } from '../utils';
 import Modal from './Modal';
+import ResultDetailsTable from './ResultDetailsTable';
 import ResultTable from './ResultTable';
 import { TaxFormType, currencyLabel, periodLabel } from './TaxForm';
 
@@ -68,7 +69,15 @@ function ResultSection() {
       onClose={() => setIsModalOpen(false)}
       title="مالیات شما"
     >
-      <ResultTable data={tableData} />
+      <div className="flex gap-2">
+        <ResultTable data={tableData} />
+        <ResultDetailsTable
+          steps={output.steps}
+          currency={input.currency}
+          totalTax={output.totalTax}
+          period={input.period}
+        />
+      </div>
     </Modal>
   );
 }
