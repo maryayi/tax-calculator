@@ -14,12 +14,12 @@ function ResultTable({ data }: Props) {
     <table className="border-collapse border border-slate-400 bg-slate-100">
       {data.map(({ header, value, isBold }) => (
         <tr key={`${header}-${value}`}>
-          <th className="border border-slate-400 p-3 font-bold text-right">
+          <th className="border border-slate-400 p-3 text-center font-bold">
             {header}
           </th>
           <td
             className={twMerge(
-              'border border-slate-400 p-3 text-right',
+              'border border-slate-400 text-center p-3',
               isBold ? 'font-bold' : ''
             )}
           >

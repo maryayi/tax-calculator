@@ -72,38 +72,38 @@ function ResultDetailsTable({
       <h3 className="text-base font-bold text-slate-800">جزئیات محاسبه</h3>
       <table className="border-collapse border border-slate-400 bg-slate-100">
         <tr>
-          <th className="border border-slate-400 p-3 font-bold text-right">
+          <th className="border border-slate-400 p-3 font-bold text-center">
             پله مالیاتی
           </th>
-          <th className="border border-slate-400 p-3 font-bold text-right">
+          <th className="border border-slate-400 p-3 font-bold text-center">
             {`بازه ${periodLabel[period]} (${currencyLabel[currency]})`}
           </th>
-          <th className="border border-slate-400 p-3 font-bold text-right">
+          <th className="border border-slate-400 p-3 font-bold text-center">
             درصد
           </th>
-          <th className="border border-slate-400 p-3 font-bold text-right">
+          <th className="border border-slate-400 p-3 font-bold text-center">
             {`مالیات ${periodLabel[period]} (${currencyLabel[currency]})`}
           </th>
         </tr>
         {steps.map(({ taxPercent, appliedTax }, index) => (
           <tr key={index}>
-            <td className="border border-slate-400 p-3 text-right">
+            <td className="border border-slate-400 p-3 text-center">
               {convertToPersianNumbers(index + 1, {
                 useGrouping: false,
                 fractionDigits: 0,
               })}
             </td>
-            <td className={twMerge('border border-slate-400 p-3 text-right')}>
+            <td className={twMerge('border border-slate-400 p-3 text-center')}>
               {generateRangeText(index, currency, period, year)}
             </td>
-            <td className={twMerge('border border-slate-400 p-3 text-right')}>
+            <td className={twMerge('border border-slate-400 p-3 text-center')}>
               {convertToPersianNumbers(taxPercent, {
                 useGrouping: false,
                 currency: '٪',
                 fractionDigits: 0,
               })}
             </td>
-            <td className={twMerge('border border-slate-400 p-3 text-right')}>
+            <td className={twMerge('border border-slate-400 p-3 text-center')}>
               {convertToPersianNumbers(
                 normalizeValue(appliedTax, currency, period),
                 {
@@ -115,14 +115,14 @@ function ResultDetailsTable({
           </tr>
         ))}
         <tr>
-          <td className="border border-slate-400 p-3 text-right">جمع</td>
-          <td className={twMerge('border border-slate-400 p-3 text-right')}>
+          <td className="border border-slate-400 p-3 text-center">جمع</td>
+          <td className={twMerge('border border-slate-400 p-3 text-center')}>
             -
           </td>
-          <td className={twMerge('border border-slate-400 p-3 text-right')}>
+          <td className={twMerge('border border-slate-400 p-3 text-center')}>
             -
           </td>
-          <td className={twMerge('border border-slate-400 p-3 text-right')}>
+          <td className={twMerge('border border-slate-400 p-3 text-center')}>
             {convertToPersianNumbers(
               normalizeValue(totalTax, currency, period),
               {

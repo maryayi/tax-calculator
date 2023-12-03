@@ -29,29 +29,32 @@ function ResultSection() {
   const tableData = [
     { header: 'سال مالی', value: convertToPersianNumbers(input.year) },
     {
-      header: `درآمد ${periodLabel[input.period]}`,
+      header: `درآمد ${periodLabel[input.period]} (${
+        currencyLabel[input.currency]
+      })`,
       value: convertToPersianNumbers(input.salary, {
         useGrouping: true,
-        currency: currencyLabel[input.currency],
       }),
     },
     {
-      header: `مالیات ${periodLabel['monthly']}`,
+      header: `مالیات ${periodLabel['monthly']} (${
+        currencyLabel[input.currency]
+      })`,
       value: convertToPersianNumbers(
         annual2Monthly(annualTaxValueInSelectedCurrency),
         {
           useGrouping: true,
           fractionDigits: 0,
-          currency: currencyLabel[input.currency],
         }
       ),
     },
     {
-      header: `مالیات ${periodLabel['annual']}`,
+      header: `مالیات ${periodLabel['annual']} (${
+        currencyLabel[input.currency]
+      })`,
       value: convertToPersianNumbers(annualTaxValueInSelectedCurrency, {
         useGrouping: true,
         fractionDigits: 0,
-        currency: currencyLabel[input.currency],
       }),
     },
     {
