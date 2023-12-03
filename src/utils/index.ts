@@ -19,7 +19,7 @@ export function convertToPersianNumbers(
   const numeralNum = typeof number === 'string' ? +number : number;
 
   let result = Intl.NumberFormat('fa-IR', {
-    minimumFractionDigits: fractionDigits,
+    minimumFractionDigits: 0,
     maximumFractionDigits: fractionDigits,
     useGrouping,
   }).format(numeralNum);

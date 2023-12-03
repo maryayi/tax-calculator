@@ -27,6 +27,7 @@ function ResultSection() {
   );
 
   const tableData = [
+    { header: 'سال مالی', value: convertToPersianNumbers(input.year) },
     {
       header: `درآمد ${periodLabel[input.period]}`,
       value: convertToPersianNumbers(input.salary, {
@@ -34,7 +35,6 @@ function ResultSection() {
         currency: currencyLabel[input.currency],
       }),
     },
-    { header: 'سال مالی', value: convertToPersianNumbers(input.year) },
     {
       header: `مالیات ${periodLabel['monthly']}`,
       value: convertToPersianNumbers(
@@ -69,13 +69,14 @@ function ResultSection() {
       onClose={() => setIsModalOpen(false)}
       title="مالیات شما"
     >
-      <div className="flex gap-2">
+      <div className="flex flex-wrap justify-around gap-4">
         <ResultTable data={tableData} />
         <ResultDetailsTable
           steps={output.steps}
           currency={input.currency}
           totalTax={output.totalTax}
           period={input.period}
+          year={input.year}
         />
       </div>
     </Modal>
