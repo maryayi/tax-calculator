@@ -1,4 +1,5 @@
 import { useTaxContext } from '../contexts/tax-context';
+import rules from '../core/rules';
 import { IRR2IRT, annual2Monthly, convertToPersianNumbers } from '../utils';
 import Modal from './Modal';
 import ResultDetailsTable from './ResultDetailsTable';
@@ -80,6 +81,7 @@ function ResultSection() {
           totalTax={output.totalTax}
           period={input.period}
           year={input.year}
+          reference={rules[input.year].reference}
         />
       </div>
     </Modal>

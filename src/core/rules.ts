@@ -1,5 +1,7 @@
 const rules = {
   '1402': {
+    reference:
+      'https://www.shenasname.ir/download/50002-%D9%85%D8%A7%D9%84%DB%8C%D8%A7%D8%AA-%D8%AD%D9%82%D9%88%D9%82-%D8%B3%D8%A7%D9%84-%DB%B1%DB%B4%DB%B0%DB%B2',
     isApproved: true,
     steps: [
       {
@@ -25,6 +27,8 @@ const rules = {
     ],
   },
   '1403': {
+    reference:
+      'https://www.shenasname.ir/maliati/57993-%D9%85%D8%A7%D9%84%DB%8C%D8%A7%D8%AA-%D8%AD%D9%82%D9%88%D9%82-%D8%B3%D8%A7%D9%84-%DB%B1%DB%B4%DB%B0%DB%B3',
     isApproved: false,
     steps: [
       {

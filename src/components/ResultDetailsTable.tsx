@@ -1,6 +1,7 @@
 import { twMerge } from 'tailwind-merge';
 import rules from '../core/rules';
 import { IRR2IRT, annual2Monthly, convertToPersianNumbers } from '../utils';
+import Link from './Link';
 import { TaxFormType, currencyLabel, periodLabel } from './TaxForm';
 
 type Props = {
@@ -13,6 +14,7 @@ type Props = {
   totalTax: number;
   period: TaxFormType['period'];
   year: TaxFormType['year'];
+  reference: string;
 };
 
 function generateRangeText(
@@ -66,10 +68,17 @@ function ResultDetailsTable({
   totalTax,
   period,
   year,
+  reference,
 }: Props) {
   return (
     <div className="flex flex-col gap-2 items-start">
-      <h3 className="text-base font-bold text-slate-800">جزئیات محاسبه</h3>
+      <h3 className="text-base font-bold text-slate-800">
+        جزئیات محاسبه (
+        <Link href={reference} target="_blank" rel="noopener noreferrer">
+          مرجع
+        </Link>
+        )
+      </h3>
       <table className="border-collapse border border-slate-400 bg-slate-100">
         <tr>
           <th className="border border-slate-400 p-3 font-bold text-center">
