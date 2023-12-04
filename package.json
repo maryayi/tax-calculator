@@ -2,8 +2,11 @@
   "name": "tax-calculator",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://maryayi.github.io/tax-calculator",
   "type": "module",
   "scripts": {
+    "predeploy": "pnpm run build",
+    "deploy": "gh-pages -d build",
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
@@ -33,6 +36,7 @@
     "eslint": "^8.55.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.4",
+    "gh-pages": "^6.1.0",
     "typescript": "^5.3.2",
     "vite": "^5.0.4",
     "vitest": "^0.34.6"
