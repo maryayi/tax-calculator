@@ -1,7 +1,7 @@
 {
   "name": "tax-calculator",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "homepage": "https://maryayi.github.io/tax-calculator",
   "type": "module",
   "scripts": {
