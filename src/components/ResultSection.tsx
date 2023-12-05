@@ -27,13 +27,28 @@ function ResultSection() {
     input.currency
   );
 
-  const tableData = [
+  const pureSalaryInSelectedCurrencyAndPeriod =
+    input.period === 'annual'
+      ? normalizeOutputCurrency(output.pureSalary, input.currency)
+      : annual2Monthly(
+          normalizeOutputCurrency(output.pureSalary, input.currency)
+        );
+
+  const resultTableData = [
     { header: 'سال مالی', value: convertToPersianNumbers(input.year) },
     {
       header: `حقوق کل ${periodLabel[input.period]} (${
         currencyLabel[input.currency]
       })`,
       value: convertToPersianNumbers(input.salary, {
+        useGrouping: true,
+      }),
+    },
+    {
+      header: `حقوق خالص ${periodLabel[input.period]} (${
+        currencyLabel[input.currency]
+      })`,
+      value: convertToPersianNumbers(pureSalaryInSelectedCurrencyAndPeriod, {
         useGrouping: true,
       }),
     },
@@ -74,7 +89,7 @@ function ResultSection() {
       title="مالیات شما"
     >
       <div className="flex flex-wrap justify-around gap-4">
-        <ResultTable data={tableData} />
+        <ResultTable data={resultTableData} />
         <ResultDetailsTable
           steps={output.steps}
           currency={input.currency}
