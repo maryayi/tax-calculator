@@ -10,6 +10,7 @@ describe('Testing tax calculator', () => {
       steps: [],
       totalTax: 0,
       totalPercent: 0,
+      pureSalary: 0,
     });
   });
   it('tax of 1st step should be zero', () => {
@@ -25,6 +26,7 @@ describe('Testing tax calculator', () => {
       ],
       totalTax: 0,
       totalPercent: 0,
+      pureSalary: 1,
     });
   });
 
@@ -55,6 +57,7 @@ describe('Testing tax calculator', () => {
         },
       ],
       totalTax: 96_000_000,
+      pureSalary: 2_000_000_000 - 96_000_000,
       totalPercent: 4.8,
     });
     expect(tax.steps.reduce((acc, cur) => acc + cur.appliedTax, 0)).toBe(
@@ -74,6 +77,7 @@ describe('Testing tax calculator', () => {
         },
       ],
       totalTax: 0,
+      pureSalary: 1_200_000_000,
       totalPercent: 0,
     });
   });
@@ -95,6 +99,7 @@ describe('Testing tax calculator', () => {
         },
       ],
       totalTax: 48_000_000,
+      pureSalary: 1_680_000_000 - 48_000_000,
       totalPercent: (100 * 48_000_000) / 1_680_000_000,
     });
     expect(tax.steps.reduce((acc, cur) => acc + cur.appliedTax, 0)).toBe(
@@ -134,6 +139,7 @@ describe('Testing tax calculator', () => {
         },
       ],
       totalTax: 1_590_000_000,
+      pureSalary: 7_800_000_000 - 1_590_000_000,
       totalPercent: (100 * 1_590_000_000) / 7_800_000_000,
     });
     expect(tax.steps.reduce((acc, cur) => acc + cur.appliedTax, 0)).toBe(

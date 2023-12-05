@@ -11,6 +11,7 @@ export type CalculateOutputType = {
     taxPercent: number;
     appliedTax: number; // annual IRR
   }[];
+  pureSalary: number; // annual IRR
   totalTax: number; // annual IRR
   totalPercent: number;
 };
@@ -52,13 +53,14 @@ function calculateTax({
             },
           ],
           totalTax: acc.totalTax + currentStepTax,
+          pureSalary: salary - (acc.totalTax + currentStepTax),
           totalPercent:
             salary > 0 ? ((acc.totalTax + currentStepTax) * 100) / salary : 0,
         };
       }
       return acc;
     },
-    { steps: [], totalTax: 0, totalPercent: 0 }
+    { steps: [], totalTax: 0, pureSalary: 0, totalPercent: 0 }
   );
 }
 
