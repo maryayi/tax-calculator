@@ -37,8 +37,8 @@ const schema = yup.object().shape({
   salary: yup
     .number()
     .min(0, 'عدد مثبت وارد کنید')
-    .required('درآمدتان را وارد کنید')
-    .typeError('درآمدتان را به عدد وارد کنید. زبان کیبرد انگلیسی باشد'),
+    .required('حقوق‌تان را وارد کنید')
+    .typeError('حقوق‌تان را به عدد وارد کنید. زبان کیبرد انگلیسی باشد'),
   period: yup
     .mixed<TaxFormType['period']>()
     .oneOf(['monthly', 'annual'])
@@ -76,7 +76,7 @@ function TaxForm() {
 
   const currency = watch('currency');
 
-  const inputLabel = `درآمد ${periodLabel[period]} (${currencyLabel[currency]})`;
+  const inputLabel = `حقوق ${periodLabel[period]} (${currencyLabel[currency]})`;
 
   const onSubmit = ({ salary, period, currency, year }: TaxFormType) => {
     setInput({ salary, period, currency, year });

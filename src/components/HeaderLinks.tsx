@@ -21,9 +21,9 @@ function HeaderLinks() {
       >
         <div className="flex flex-col items-start gap-4">
           <p className="text-right text-base text-gray-800">
-            این برنامه تلاشی است برای آسان‌تر کردن محاسبه مالیات بر درآمد بر
-            اساس جداول تعیین شده در قانون بودجه سالانه کشور. مرجع محاسبات مالیات
-            هر سال در جدول زیر آمده است.
+            این برنامه تلاشی است برای آسان‌تر کردن محاسبه مالیات بر حقوق بر اساس
+            جداول تعیین شده در قانون بودجه سالانه کشور. مرجع محاسبات مالیات هر
+            سال در جدول زیر آمده است.
           </p>
           <ReferencesTable />
           <p className="text-right text-base text-gray-800">

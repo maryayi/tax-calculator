@@ -30,7 +30,7 @@ function ResultSection() {
   const tableData = [
     { header: 'سال مالی', value: convertToPersianNumbers(input.year) },
     {
-      header: `درآمد ${periodLabel[input.period]} (${
+      header: `حقوق کل ${periodLabel[input.period]} (${
         currencyLabel[input.currency]
       })`,
       value: convertToPersianNumbers(input.salary, {
@@ -59,7 +59,7 @@ function ResultSection() {
       }),
     },
     {
-      header: 'درصد مالیات از کل درآمد',
+      header: 'درصد مالیات از کل حقوق',
       value: convertToPersianNumbers(output.totalPercent, {
         useGrouping: false,
         fractionDigits: 2,
