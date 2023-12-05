@@ -29,6 +29,7 @@ const defaultContextValue = {
   output: {
     totalTax: 0,
     totalPercent: 0,
+    pureSalary: 0,
     steps: [],
   },
   setOutput: () => {},

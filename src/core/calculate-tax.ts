@@ -11,8 +11,8 @@ export type CalculateOutputType = {
     taxPercent: number;
     appliedTax: number; // annual IRR
   }[];
-  pureSalary: number; // annual IRR
   totalTax: number; // annual IRR
+  pureSalary: number; // annual IRR
   totalPercent: number;
 };
 
