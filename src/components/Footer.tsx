@@ -4,7 +4,7 @@ import Link from './Link';
 function Footer() {
   return (
     <div className="absolute bottom-0 bg-slate-100 flex w-full border-t border-t-gray-500 border-solid justify-center">
-      <header className="flex flex-col max-w-5xl w-full p-4 items-center gap-2">
+      <footer className="flex flex-col max-w-5xl w-full p-4 items-center gap-2">
         <p className="text-center">
           ساخته شده توسط{' '}
           <Link
@@ -24,7 +24,7 @@ function Footer() {
           </Link>
         </p>
         <p className="text-center text-gray-500">{DISCLAIMER_MESSAGE}</p>
-      </header>
+      </footer>
     </div>
   );
 }

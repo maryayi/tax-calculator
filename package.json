@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@total-typescript/ts-reset": "^0.5.1",
+    "@types/node": "^20.10.5",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.13.2",
@@ -44,8 +45,8 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "pnpm test",
-      "pnpm tsc"
+      "pnpm test -- --passWithNoTests",
+      "bash -c 'pnpm tsc --noEmit'"
     ]
   }
 }
