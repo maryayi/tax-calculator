@@ -108,7 +108,7 @@ describe('Testing tax calculator', () => {
   });
 
   it('Tax of annual 7_800_000_000 IRR on 1403 should be 1_590_000_000', () => {
-    const tax = calculateTax({ salary: 7_800_000_000, year: '1403' });
+    const tax = calculateTax({ salary: 7_800_000_000, year: '1402' });
 
     expect(tax).toEqual({
       steps: [

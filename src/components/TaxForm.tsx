@@ -6,6 +6,7 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { DEFAULT_JALALI_YEAR } from '../constants.ts';
 import { useTaxContext } from '../contexts/tax-context.tsx';
 import calculateTax from '../core/calculate-tax.ts';
 import rules from '../core/rules.ts';
@@ -67,7 +68,7 @@ function TaxForm() {
     defaultValues: {
       period: 'monthly',
       currency: 'IRT',
-      year: '1402',
+      year: DEFAULT_JALALI_YEAR,
     },
     resolver: yupResolver(schema),
   });

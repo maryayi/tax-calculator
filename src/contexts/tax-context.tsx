@@ -5,6 +5,7 @@ import {
   type PropsWithChildren,
 } from 'react';
 import { type TaxFormType } from '../components/TaxForm';
+import { DEFAULT_JALALI_YEAR } from '../constants';
 import { type CalculateOutputType } from '../core/calculate-tax';
 
 type ContextType = {
@@ -23,7 +24,7 @@ const defaultContextValue = {
     salary: 0,
     period: 'monthly',
     currency: 'IRT',
-    year: '1402',
+    year: DEFAULT_JALALI_YEAR,
   } as TaxFormType,
   setInput: () => {},
   output: {

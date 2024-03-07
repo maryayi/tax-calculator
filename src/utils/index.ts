@@ -31,6 +31,21 @@ export function convertToPersianNumbers(
   return result;
 }
 
+export function convertToEnglishNumbers(persianStringNumber: string): number {
+  const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+
+  let stringResult = persianStringNumber;
+
+  for (const [index, item] of Object.entries(persianDigits)) {
+    stringResult = stringResult.replace(new RegExp(item, 'g'), index);
+  }
+
+  // Replacing decimal point
+  stringResult.replace(/٫/g, '.');
+
+  return +stringResult;
+}
+
 export function IRR2IRT(IRR: number) {
   return IRR / 10;
 }
@@ -87,4 +102,12 @@ export function normalizeSalary({
   }
 
   return modifiedSalary;
+}
+
+export function getCurrentJalaliYear(): string {
+  const persianJalaliYear = new Intl.DateTimeFormat('fa-IR', {
+    year: 'numeric',
+  }).format(new Date());
+
+  return convertToEnglishNumbers(persianJalaliYear).toString();
 }
