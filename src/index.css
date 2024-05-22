@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  @font-face {
+    font-family: 'IRANSansWeb(FaNum) Bold';
+    src: url('/fonts/bc44a2635942ecc276e48e7215fc678a.eot');
+    src: url('/fonts/bc44a2635942ecc276e48e7215fc678a.eot?#iefix')
+        format('embedded-opentype'),
+      url('/fonts/bc44a2635942ecc276e48e7215fc678a.woff') format('woff'),
+      url('/fonts/bc44a2635942ecc276e48e7215fc678a.woff2') format('woff2'),
+      url('/fonts/bc44a2635942ecc276e48e7215fc678a.ttf') format('truetype'),
+      url('/fonts/bc44a2635942ecc276e48e7215fc678a.svg#IRANSansWeb(FaNum) Bold')
+        format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+}
+
 body {
   font-family: Vazirmatn, sans-serif;
 }
