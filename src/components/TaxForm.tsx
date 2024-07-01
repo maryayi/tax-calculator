@@ -163,7 +163,7 @@ function TaxForm() {
       <Input
         {...register('salary')}
         dir="ltr"
-        className="font-num"
+        className="font-num remove-arrow"
         type="number"
         error={errors?.salary?.message}
         label={inputLabel}
