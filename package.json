@@ -48,5 +48,10 @@
       "pnpm test -- --passWithNoTests",
       "bash -c 'pnpm tsc --noEmit'"
     ]
-  }
+  },
+  "engines": {
+    "node": ">=20 <22",
+    "pnpm": ">=9 <10"
+  },
+  "packageManager": "pnpm@9.12.2"
 }
