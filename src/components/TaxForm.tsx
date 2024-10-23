@@ -14,6 +14,7 @@ import { convertToPersianNumbers, normalizeSalary } from '../utils/index.ts';
 import Button from './Button';
 import Input from './Input';
 import Radio from './Radio';
+import Select from './Select.tsx';
 
 const years = Object.keys(rules) as (keyof typeof rules)[];
 
@@ -96,7 +97,7 @@ function TaxForm() {
         control={control}
         render={({ field }) => {
           return (
-            <Radio
+            <Select
               icon={<CalendarDaysIcon className="w-6 h-6" />}
               label="سال مالی"
               options={years.map((year) => ({
