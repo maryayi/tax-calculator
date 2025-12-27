@@ -49,5 +49,5 @@
       "bash -c 'pnpm tsc --noEmit'"
     ]
   },
-  "packageManager": "pnpm@9.12.2"
+  "packageManager": "pnpm@10.26.2"
 }
