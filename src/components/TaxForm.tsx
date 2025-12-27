@@ -38,8 +38,15 @@ export const currencyLabel: Record<TaxFormType['currency'], string> = {
 const schema = yup.object().shape({
   salary: yup
     .number()
+    .transform((value, originalValue) => {
+      if (typeof originalValue === 'string') {
+        const cleaned = originalValue.replace(/,/g, '');
+        return cleaned === '' ? undefined : Number(cleaned);
+      }
+      return value;
+    })
     .min(0, 'عدد مثبت وارد کنید')
-    .required('حقوق‌تان را وارد کنید')
+    .required('حقوق‌تان را وارد کنید. زبان کیبرد انگلیسی باشد')
     .typeError('حقوق‌تان را به عدد وارد کنید. زبان کیبرد انگلیسی باشد'),
   period: yup
     .mixed<TaxFormType['period']>()
@@ -168,6 +175,7 @@ function TaxForm() {
         type="number"
         error={errors?.salary?.message}
         label={inputLabel}
+        thousandsSeparator
       />
 
       <Button type="submit">حساب کن</Button>
