@@ -1,5 +1,10 @@
 import { DISCLAIMER_MESSAGE } from '../constants';
+import { convertToPersianNumbers } from '../utils';
 import Link from './Link';
+
+const appVersion = __APP_VERSION__.split('.')
+  .map((part) => convertToPersianNumbers(part))
+  .join('.');
 
 function Footer() {
   return (
@@ -21,7 +26,8 @@ function Footer() {
             rel="noopener noreferrer"
           >
             کد منبع
-          </Link>
+          </Link>{' '}
+          · نسخه {appVersion}
         </p>
         <p className="text-center text-xs text-ink/40">{DISCLAIMER_MESSAGE}</p>
       </footer>
