@@ -72,7 +72,7 @@ const Input = forwardRef(
             onChange={handleChange}
             aria-invalid={!!error}
             className={twMerge(
-              'w-full rounded-xl border border-ink/15 bg-white p-3 text-left text-xl font-bold tracking-wide text-ink shadow-sm transition-colors placeholder:text-base placeholder:font-normal placeholder:text-ink/30 hover:border-ink/30 focus:border-kashi-500',
+              'w-full rounded-xl border border-ink/15 bg-white p-3 text-left text-xl font-bold tracking-wide text-ink shadow-xs transition-colors placeholder:text-base placeholder:font-normal placeholder:text-ink/30 hover:border-ink/30 focus:border-kashi-500',
               suffix ? 'pr-16' : '',
               className
             )}

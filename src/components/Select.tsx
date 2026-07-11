@@ -24,7 +24,7 @@ function Select({ label, options, hint, ...rest }: Props) {
         <select
           {...rest}
           id={id}
-          className="w-full cursor-pointer appearance-none rounded-xl border border-ink/15 bg-white p-3 pl-10 font-semibold text-ink shadow-sm transition-colors hover:border-ink/30 focus:border-kashi-500"
+          className="w-full cursor-pointer appearance-none rounded-xl border border-ink/15 bg-white p-3 pl-10 font-semibold text-ink shadow-xs transition-colors hover:border-ink/30 focus:border-kashi-500"
         >
           {options.map(({ value, label: itemLabel }) => (
             <option key={value} value={value}>

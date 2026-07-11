@@ -30,7 +30,7 @@ function SegmentedControl<T extends string>({
           <label
             key={optionValue}
             htmlFor={`${id}-${optionValue}`}
-            className="cursor-pointer rounded-lg px-4 py-2 text-center text-sm font-semibold text-ink/50 transition-colors hover:text-ink/80 has-[:checked]:bg-white has-[:checked]:text-kashi-700 has-[:checked]:shadow-sm has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-kashi-500"
+            className="cursor-pointer rounded-lg px-4 py-2 text-center text-sm font-semibold text-ink/50 transition-colors hover:text-ink/80 has-[:checked]:bg-white has-[:checked]:text-kashi-700 has-[:checked]:shadow-xs has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-kashi-500"
           >
             <input
               type="radio"

@@ -1,26 +1,5 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  type PropsWithChildren,
-} from 'react';
-import { type TaxFormType } from '../components/TaxForm';
-import { type CalculateOutputType } from '../core/calculate-tax';
-
-export type TaxResult = {
-  input: TaxFormType;
-  output: CalculateOutputType;
-};
-
-type ContextType = {
-  result: TaxResult | null;
-  setResult: React.Dispatch<React.SetStateAction<TaxResult | null>>;
-};
-
-const TaxContext = createContext<ContextType>({
-  result: null,
-  setResult: () => {},
-});
+import { useState, type PropsWithChildren } from 'react';
+import { TaxContext, type TaxResult } from './use-tax-context';
 
 export const TaxContextProvider = ({ children }: PropsWithChildren) => {
   const [result, setResult] = useState<TaxResult | null>(null);
@@ -30,8 +9,4 @@ export const TaxContextProvider = ({ children }: PropsWithChildren) => {
       {children}
     </TaxContext.Provider>
   );
-};
-
-export const useTaxContext = () => {
-  return useContext(TaxContext);
 };

@@ -9,3 +9,20 @@ export const DEFAULT_JALALI_YEAR = (
     ? getCurrentJalaliYear()
     : Object.keys(rules).at(-1)
 ) as keyof typeof rules;
+
+export type TaxFormType = {
+  salary: number;
+  period: 'monthly' | 'annual';
+  currency: 'IRR' | 'IRT';
+  year: keyof typeof rules;
+};
+
+export const periodLabel: Record<TaxFormType['period'], string> = {
+  monthly: 'ماهانه',
+  annual: 'سالانه',
+};
+
+export const currencyLabel: Record<TaxFormType['currency'], string> = {
+  IRT: 'تومان',
+  IRR: 'ریال',
+};

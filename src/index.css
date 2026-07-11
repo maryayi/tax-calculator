@@ -1,6 +1,34 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-ink: #152238;
+  --color-porcelain: #eef3f3;
+
+  --color-kashi-50: #f0f9f8;
+  --color-kashi-100: #dcf0ed;
+  --color-kashi-200: #b5e0da;
+  --color-kashi-300: #83c7be;
+  --color-kashi-400: #4ea89d;
+  --color-kashi-500: #2b8b80;
+  --color-kashi-600: #157a6f;
+  --color-kashi-700: #10635b;
+  --color-kashi-800: #0d4f49;
+  --color-kashi-900: #0a3d39;
+
+  --color-saffron-50: #fdf6e9;
+  --color-saffron-100: #fae9c8;
+  --color-saffron-300: #edbe62;
+  --color-saffron-400: #e3a93c;
+  --color-saffron-500: #d9930f;
+  --color-saffron-600: #b87a08;
+  --color-saffron-700: #92600a;
+
+  --color-lapis-600: #2b4a9b;
+  --color-lapis-700: #233e85;
+
+  --shadow-card: 0 1px 2px rgb(21 34 56 / 0.04),
+    0 8px 24px -12px rgb(21 34 56 / 0.12);
+}
 
 @layer base {
   body {
@@ -13,7 +41,7 @@
   }
 
   :focus-visible {
-    @apply outline-none ring-2 ring-kashi-500 ring-offset-2 ring-offset-porcelain;
+    @apply outline-hidden ring-2 ring-kashi-500 ring-offset-2 ring-offset-porcelain;
   }
 }
 

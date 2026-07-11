@@ -1,4 +1,4 @@
-import { TaxFormType } from '../components/TaxForm';
+import { type TaxFormType } from '../constants';
 
 export function convertToPersianNumbers(
   number: number | string,

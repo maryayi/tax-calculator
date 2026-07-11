@@ -1,4 +1,4 @@
-import { useTaxContext } from '../contexts/tax-context';
+import { useTaxContext } from '../contexts/use-tax-context';
 import rules from '../core/rules';
 import {
   convertToPersianNumbers,
@@ -7,7 +7,7 @@ import {
 } from '../utils';
 import BracketSteps from './BracketSteps';
 import Link from './Link';
-import { currencyLabel, periodLabel } from './TaxForm';
+import { currencyLabel, periodLabel } from '../constants';
 
 /** Ghost staircase shown before the user has entered a salary. */
 function EmptyState() {

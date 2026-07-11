@@ -1,6 +1,6 @@
 import rules from '../core/rules';
 import { convertToPersianNumbers, normalizeAnnualIRR } from '../utils';
-import { TaxFormType } from './TaxForm';
+import { type TaxFormType } from '../constants';
 
 type Props = {
   /** Annual salary in IRR */

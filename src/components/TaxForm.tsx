@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
-import { DEFAULT_JALALI_YEAR } from '../constants.ts';
-import { useTaxContext } from '../contexts/tax-context.tsx';
+import {
+  currencyLabel,
+  DEFAULT_JALALI_YEAR,
+  periodLabel,
+  type TaxFormType,
+} from '../constants.ts';
+import { useTaxContext } from '../contexts/use-tax-context.ts';
 import calculateTax from '../core/calculate-tax.ts';
 import rules from '../core/rules.ts';
 import {
@@ -13,23 +18,6 @@ import SegmentedControl from './SegmentedControl';
 import Select from './Select.tsx';
 
 const years = Object.keys(rules) as (keyof typeof rules)[];
-
-export type TaxFormType = {
-  salary: number;
-  period: 'monthly' | 'annual';
-  currency: 'IRR' | 'IRT';
-  year: keyof typeof rules;
-};
-
-export const periodLabel: Record<TaxFormType['period'], string> = {
-  monthly: 'ماهانه',
-  annual: 'سالانه',
-};
-
-export const currencyLabel: Record<TaxFormType['currency'], string> = {
-  IRT: 'تومان',
-  IRR: 'ریال',
-};
 
 function TaxForm() {
   const { setResult } = useTaxContext();
