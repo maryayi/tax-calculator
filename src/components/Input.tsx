@@ -6,6 +6,7 @@ import {
   type Ref,
 } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { convertToPersianNumbers } from '../utils';
 
 type Props = Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> & {
   label: string;
@@ -29,7 +30,7 @@ function normalizeDigits(value: string): string {
 
 function addSeparators(rawValue: string): string {
   if (rawValue === '') return '';
-  return Number(rawValue).toLocaleString('en-US');
+  return convertToPersianNumbers(rawValue, { useGrouping: true });
 }
 
 const Input = forwardRef(
@@ -49,7 +50,7 @@ const Input = forwardRef(
     const id = useId();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const rawValue = normalizeDigits(e.target.value).replace(/,/g, '');
+      const rawValue = normalizeDigits(e.target.value).replace(/[,٬]/g, '');
       if (rawValue === '' || /^\d+$/.test(rawValue)) {
         onValueChange?.(rawValue);
       }
