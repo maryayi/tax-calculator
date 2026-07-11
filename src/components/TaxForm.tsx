@@ -1,19 +1,15 @@
-import {
-  BanknotesIcon,
-  CalendarDaysIcon,
-  ClockIcon,
-} from '@heroicons/react/24/outline';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Controller, useForm } from 'react-hook-form';
-import * as yup from 'yup';
+import { useEffect, useState } from 'react';
 import { DEFAULT_JALALI_YEAR } from '../constants.ts';
 import { useTaxContext } from '../contexts/tax-context.tsx';
 import calculateTax from '../core/calculate-tax.ts';
 import rules from '../core/rules.ts';
-import { convertToPersianNumbers, normalizeSalary } from '../utils/index.ts';
-import Button from './Button';
+import {
+  convertToPersianNumbers,
+  formatCompactPersian,
+  normalizeSalary,
+} from '../utils/index.ts';
 import Input from './Input';
-import Radio from './Radio';
+import SegmentedControl from './SegmentedControl';
 import Select from './Select.tsx';
 
 const years = Object.keys(rules) as (keyof typeof rules)[];
@@ -35,150 +31,93 @@ export const currencyLabel: Record<TaxFormType['currency'], string> = {
   IRR: 'ریال',
 };
 
-const schema = yup.object().shape({
-  salary: yup
-    .number()
-    .transform((value, originalValue) => {
-      if (typeof originalValue === 'string') {
-        const cleaned = originalValue.replace(/,/g, '');
-        return cleaned === '' ? undefined : Number(cleaned);
-      }
-      return value;
-    })
-    .min(0, 'عدد مثبت وارد کنید')
-    .required('حقوق‌تان را وارد کنید. زبان کیبرد انگلیسی باشد')
-    .typeError('حقوق‌تان را به عدد وارد کنید. زبان کیبرد انگلیسی باشد'),
-  period: yup
-    .mixed<TaxFormType['period']>()
-    .oneOf(['monthly', 'annual'])
-    .required('بازه زمانی را وارد کنید'),
-  currency: yup
-    .mixed<TaxFormType['currency']>()
-    .oneOf(['IRR', 'IRT'])
-    .required('واحد را وارد کنید'),
-  year: yup
-    .mixed<TaxFormType['year']>()
-    .oneOf(years)
-    .required('سال مالی را وارد کنید'),
-});
-
 function TaxForm() {
-  const { setOutput, setInput, setIsModalOpen } = useTaxContext();
+  const { setResult } = useTaxContext();
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    control,
-    formState: { errors },
-  } = useForm<TaxFormType>({
-    mode: 'all',
-    defaultValues: {
-      period: 'monthly',
-      currency: 'IRT',
-      year: DEFAULT_JALALI_YEAR,
-    },
-    resolver: yupResolver(schema),
-  });
+  const [salary, setSalary] = useState('');
+  const [period, setPeriod] = useState<TaxFormType['period']>('monthly');
+  const [currency, setCurrency] = useState<TaxFormType['currency']>('IRT');
+  const [year, setYear] = useState<TaxFormType['year']>(DEFAULT_JALALI_YEAR);
 
-  const period = watch('period');
+  useEffect(() => {
+    const parsedSalary = Number(salary);
 
-  const currency = watch('currency');
+    if (salary === '' || !Number.isFinite(parsedSalary) || parsedSalary <= 0) {
+      setResult(null);
+      return;
+    }
 
-  const inputLabel = `حقوق ${periodLabel[period]} (${currencyLabel[currency]})`;
-
-  const onSubmit = ({ salary, period, currency, year }: TaxFormType) => {
-    setInput({ salary, period, currency, year });
-    const result = calculateTax({
-      salary: normalizeSalary({ salary, currency, period }),
+    const output = calculateTax({
+      salary: normalizeSalary({ salary: parsedSalary, currency, period }),
       year,
     });
-    setOutput(result);
-    setIsModalOpen(true);
-  };
+
+    setResult({
+      input: { salary: parsedSalary, period, currency, year },
+      output,
+    });
+  }, [salary, period, currency, year, setResult]);
+
+  const salaryInWords = formatCompactPersian(Number(salary));
 
   return (
-    <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
-      <Controller
-        name="year"
-        control={control}
-        render={({ field }) => {
-          return (
-            <Select
-              icon={<CalendarDaysIcon className="w-6 h-6" />}
-              label="سال مالی"
-              options={years.map((year) => ({
-                value: year,
-                label: (
-                  <p>
-                    {convertToPersianNumbers(+year)}{' '}
-                    {!rules[year].isApproved && (
-                      <span className="text-red-500 text-xs">
-                        (لایحه تصویب نشده)
-                      </span>
-                    )}
-                  </p>
-                ),
-              }))}
-              onChange={field.onChange}
-              name={field.name}
-              value={field.value}
-              error={errors?.year?.message}
-            />
-          );
-        }}
-      />
-      <Controller
-        name="currency"
-        control={control}
-        render={({ field }) => {
-          return (
-            <Radio
-              icon={<BanknotesIcon className="w-6 h-6" />}
-              label="واحد پول"
-              options={[
-                { label: currencyLabel['IRT'], value: 'IRT' },
-                { label: currencyLabel['IRR'], value: 'IRR' },
-              ]}
-              onChange={field.onChange}
-              name={field.name}
-              value={field.value}
-              error={errors?.currency?.message}
-            />
-          );
-        }}
-      />
-      <Controller
-        name="period"
-        control={control}
-        render={({ field }) => {
-          return (
-            <Radio
-              icon={<ClockIcon className="w-6 h-6" />}
-              label="واحد زمانی"
-              options={[
-                { label: periodLabel['monthly'], value: 'monthly' },
-                { label: periodLabel['annual'], value: 'annual' },
-              ]}
-              onChange={field.onChange}
-              name={field.name}
-              value={field.value}
-              error={errors?.currency?.message}
-            />
-          );
-        }}
-      />
-      <Input
-        {...register('salary')}
-        dir="ltr"
-        className="font-num remove-arrow"
-        type="number"
-        error={errors?.salary?.message}
-        label={inputLabel}
-        thousandsSeparator
+    <form
+      className="flex flex-col gap-5 rounded-2xl border border-ink/10 bg-white p-6 shadow-card"
+      onSubmit={(e) => e.preventDefault()}
+    >
+      <Select
+        label="سال مالی"
+        value={year}
+        onChange={(e) => setYear(e.target.value as TaxFormType['year'])}
+        options={years.map((yearOption) => ({
+          value: yearOption,
+          label: `${convertToPersianNumbers(+yearOption)}${
+            rules[yearOption].isApproved ? '' : ' (لایحه تصویب نشده)'
+          }`,
+        }))}
+        hint={
+          !rules[year].isApproved && (
+            <small className="flex w-fit items-center gap-1 rounded-md bg-saffron-50 px-2 py-1 text-xs font-medium text-saffron-700">
+              لایحه بودجه این سال هنوز تصویب نشده و ارقام آن ممکن است تغییر کند
+            </small>
+          )
+        }
       />
 
-      <Button type="submit">حساب کن</Button>
+      <div className="grid grid-cols-2 gap-4">
+        <SegmentedControl
+          label="واحد پول"
+          options={[
+            { label: currencyLabel['IRT'], value: 'IRT' },
+            { label: currencyLabel['IRR'], value: 'IRR' },
+          ]}
+          value={currency}
+          onChange={setCurrency}
+        />
+        <SegmentedControl
+          label="واحد زمانی"
+          options={[
+            { label: periodLabel['monthly'], value: 'monthly' },
+            { label: periodLabel['annual'], value: 'annual' },
+          ]}
+          value={period}
+          onChange={setPeriod}
+        />
+      </div>
+
+      <Input
+        label={`حقوق ${periodLabel[period]} (${currencyLabel[currency]})`}
+        placeholder="مثلا ۵۰٬۰۰۰٬۰۰۰"
+        value={salary}
+        onValueChange={setSalary}
+        suffix={currencyLabel[currency]}
+        autoFocus
+        hint={
+          salaryInWords
+            ? `${salaryInWords} ${currencyLabel[currency]}`
+            : 'نتیجه همزمان با تایپ شما محاسبه می‌شود'
+        }
+      />
     </form>
   );
 }

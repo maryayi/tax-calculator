@@ -5,61 +5,28 @@ import {
   type PropsWithChildren,
 } from 'react';
 import { type TaxFormType } from '../components/TaxForm';
-import { DEFAULT_JALALI_YEAR } from '../constants';
 import { type CalculateOutputType } from '../core/calculate-tax';
 
-type ContextType = {
-  isModalOpen: boolean;
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+export type TaxResult = {
   input: TaxFormType;
-  setInput: React.Dispatch<React.SetStateAction<TaxFormType>>;
   output: CalculateOutputType;
-  setOutput: React.Dispatch<React.SetStateAction<CalculateOutputType>>;
 };
 
-const defaultContextValue = {
-  isModalOpen: false,
-  setIsModalOpen: () => {},
-  input: {
-    salary: 0,
-    period: 'monthly',
-    currency: 'IRT',
-    year: DEFAULT_JALALI_YEAR,
-  } as TaxFormType,
-  setInput: () => {},
-  output: {
-    totalTax: 0,
-    totalPercent: 0,
-    pureSalary: 0,
-    steps: [],
-  },
-  setOutput: () => {},
+type ContextType = {
+  result: TaxResult | null;
+  setResult: React.Dispatch<React.SetStateAction<TaxResult | null>>;
 };
 
-const TaxContext = createContext<ContextType>(defaultContextValue);
+const TaxContext = createContext<ContextType>({
+  result: null,
+  setResult: () => {},
+});
 
 export const TaxContextProvider = ({ children }: PropsWithChildren) => {
-  const [taxOutputValue, setTaxOutputValue] = useState<CalculateOutputType>(
-    defaultContextValue.output
-  );
-
-  const [taxInputValue, setTaxInputValue] = useState<TaxFormType>(
-    defaultContextValue.input
-  );
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [result, setResult] = useState<TaxResult | null>(null);
 
   return (
-    <TaxContext.Provider
-      value={{
-        isModalOpen,
-        setIsModalOpen,
-        input: taxInputValue,
-        setInput: setTaxInputValue,
-        output: taxOutputValue,
-        setOutput: setTaxOutputValue,
-      }}
-    >
+    <TaxContext.Provider value={{ result, setResult }}>
       {children}
     </TaxContext.Provider>
   );

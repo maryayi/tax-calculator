@@ -8,7 +8,7 @@ function Button({ children, ...rest }: ButtonType) {
     <button
       {...rest}
       className={twMerge(
-        'bg-blue-600 text-white p-2 w-fit rounded-md hover:bg-blue-500',
+        'rounded-xl bg-kashi-600 px-5 py-2.5 font-semibold text-white transition-colors hover:bg-kashi-700 active:bg-kashi-800',
         rest.className
       )}
     >

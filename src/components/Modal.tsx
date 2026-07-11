@@ -27,11 +27,11 @@ function Modal({ children, isOpen, onClose, title }: Props) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black/25" />
+          <div className="fixed inset-0 bg-ink/40 backdrop-blur-sm" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
+          <div className="flex min-h-full items-center justify-center p-4">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -41,20 +41,22 @@ function Modal({ children, isOpen, onClose, title }: Props) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-5xl transform overflow-hidden rounded-md bg-white p-6 text-left align-middle shadow-xl transition-all overflow-x-auto">
+              <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden overflow-x-auto rounded-2xl bg-white p-6 text-right align-middle shadow-xl transition-all">
                 <Dialog.Title
                   as="div"
-                  className="flex justify-between items-center"
+                  className="flex items-center justify-between border-b border-ink/10 pb-4"
                 >
-                  <h3 className="text-xl font-medium text-right leading-6 text-gray-900">
-                    {title}
-                  </h3>
-                  <XMarkIcon
+                  <h3 className="text-lg font-bold text-ink">{title}</h3>
+                  <button
+                    type="button"
                     onClick={onClose}
-                    className="h-7 w-7 text-gray-900 cursor-pointer"
-                  />
+                    aria-label="بستن"
+                    className="rounded-lg p-1 text-ink/50 transition-colors hover:bg-ink/5 hover:text-ink"
+                  >
+                    <XMarkIcon className="h-5 w-5" />
+                  </button>
                 </Dialog.Title>
-                <div className="mt-2 p-6">{children}</div>
+                <div className="pt-5">{children}</div>
               </Dialog.Panel>
             </Transition.Child>
           </div>

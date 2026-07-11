@@ -104,6 +104,61 @@ export function normalizeSalary({
   return modifiedSalary;
 }
 
+/**
+ * Convert an annual IRR value to the user's selected currency and period.
+ */
+export function normalizeAnnualIRR(
+  value: number,
+  {
+    currency,
+    period,
+  }: { currency: TaxFormType['currency']; period: TaxFormType['period'] }
+) {
+  let result = value;
+
+  if (currency === 'IRT') {
+    result = IRR2IRT(result);
+  }
+
+  if (period === 'monthly') {
+    result = annual2Monthly(result);
+  }
+
+  return result;
+}
+
+/**
+ * Format a number as compact Persian words, e.g.
+ * 45_200_000 -> "۴۵ میلیون و ۲۰۰ هزار"
+ */
+export function formatCompactPersian(value: number): string {
+  if (!Number.isFinite(value) || value <= 0) return '';
+
+  const units: { threshold: number; label: string }[] = [
+    { threshold: 1_000_000_000_000, label: 'هزار میلیارد' },
+    { threshold: 1_000_000_000, label: 'میلیارد' },
+    { threshold: 1_000_000, label: 'میلیون' },
+    { threshold: 1_000, label: 'هزار' },
+  ];
+
+  const parts: string[] = [];
+  let remainder = Math.floor(value);
+
+  for (const { threshold, label } of units) {
+    const count = Math.floor(remainder / threshold);
+    if (count > 0) {
+      parts.push(`${convertToPersianNumbers(count)} ${label}`);
+      remainder %= threshold;
+    }
+  }
+
+  if (remainder > 0) {
+    parts.push(convertToPersianNumbers(remainder));
+  }
+
+  return parts.join(' و ');
+}
+
 export function getCurrentJalaliYear(): string {
   const persianJalaliYear = new Intl.DateTimeFormat('fa-IR', {
     year: 'numeric',
