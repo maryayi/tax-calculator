@@ -146,4 +146,51 @@ describe('Testing tax calculator', () => {
       1_590_000_000
     );
   });
+
+  it('Tax of annual 4_800_000_000 IRR on 1405 should be 0', () => {
+    const tax = calculateTax({ salary: 4_800_000_000, year: '1405' });
+
+    expect(tax).toEqual({
+      steps: [
+        {
+          annualMin: rules[1405].steps[0].annualMin,
+          taxPercent: rules[1405].steps[0].taxPercent,
+          appliedTax: 0,
+        },
+      ],
+      totalTax: 0,
+      pureSalary: 4_800_000_000,
+      totalPercent: 0,
+    });
+  });
+
+  it('Tax of annual 12_000_000_000 IRR on 1405 should be 840_000_000', () => {
+    const tax = calculateTax({ salary: 12_000_000_000, year: '1405' });
+
+    expect(tax).toEqual({
+      steps: [
+        {
+          annualMin: rules[1405].steps[0].annualMin,
+          taxPercent: rules[1405].steps[0].taxPercent,
+          appliedTax: 0,
+        },
+        {
+          annualMin: rules[1405].steps[1].annualMin,
+          taxPercent: rules[1405].steps[1].taxPercent,
+          appliedTax: 480_000_000,
+        },
+        {
+          annualMin: rules[1405].steps[2].annualMin,
+          taxPercent: rules[1405].steps[2].taxPercent,
+          appliedTax: 360_000_000,
+        },
+      ],
+      totalTax: 840_000_000,
+      pureSalary: 12_000_000_000 - 840_000_000,
+      totalPercent: (100 * 840_000_000) / 12_000_000_000,
+    });
+    expect(tax.steps.reduce((acc, cur) => acc + cur.appliedTax, 0)).toBe(
+      840_000_000
+    );
+  });
 });
